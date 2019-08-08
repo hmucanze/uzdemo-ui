@@ -1,0 +1,37 @@
+.col-codigo {
+  width: 40px;
+}
+.col-contacto {
+  width: 100px;
+}
+.col-accoes {
+  width: 120px;
+}
+.col-accoes-body {
+  width: 120px;
+  text-align: center;
+}
+.col-accoes-body button {
+  margin-left: 4px;
+}
+.col-proveniencia {
+  width: 120px;
+}
+.col-proveniencia-body {
+  width: 120px;
+  text-align: right;
+}
+.col-nascimento {
+  width: 180px;
+}
+.col-nascimento-body {
+  width: 180px;
+  text-align: center;
+}
+.col-numero {
+  width: 120px;
+}
+.col-numero-body {
+  width: 120px;
+  text-align: center;
+}

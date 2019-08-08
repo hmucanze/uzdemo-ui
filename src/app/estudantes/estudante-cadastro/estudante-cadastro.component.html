@@ -1,0 +1,53 @@
+<div class="container">
+  <div class="p-grid">
+    <div class="p-col-12">
+      <h1>Cadastro de Estudante</h1>
+    </div>
+  </div>
+
+  <form>
+    <div class="p-grid">
+      <div class="p-col-12">
+        <p-fieldset legend="Dados Pessoais">
+          <div class="p-col-12 ui-fluid">
+            <label>Nome</label>
+            <input type="text" pInputText>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 ui-fluid">
+            <label>Província de Nascimento</label>
+            <p-dropdown [options]="provincias"></p-dropdown>
+          </div>
+          <div class="p-col-12 p-md-6 p-lg-3 ui-fluid">
+            <label>Distrito</label>
+            <p-dropdown [options]="distritos"></p-dropdown>
+          </div>
+          <div class="p-col-12 ui-fluid">
+            <label>Celular</label>
+            <input type="text" pInputText/>
+          </div>
+          <div class="p-col-12 ui-fluid">
+            <label>Curso</label>
+            <p-dropdown [options]="grupoCursos" [group]="true" placeholder="Selecione o Curso"></p-dropdown>
+          </div>
+        </p-fieldset>
+      </div>
+
+      <div class="p-col-12">
+        <p-fieldset legend="Dados da Conta">
+          <div class="p-col-12 ui-fluid">
+            <label>email</label>
+            <input type="text" pInputText>
+          </div>
+          <div class="p-col-12 ui-fluid">
+            <label>Senha</label>
+            <input type="password" pPassword promptLabel="Insira a Senha">
+          </div>
+        </p-fieldset>
+      </div>
+
+      <div class="p-col-12">
+        <button type="submit" pButton label="Salvar"></button>
+      </div>
+    </div>
+  </form>
+</div>

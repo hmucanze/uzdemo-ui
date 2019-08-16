@@ -2,6 +2,7 @@ import { EstudanteService, EstudanteFilter } from './../estudante.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/components/common/api';
 import { Table } from 'primeng/table';
+import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
   selector: 'app-estudante-pesquisa',
@@ -18,7 +19,8 @@ export class EstudantePesquisaComponent implements OnInit {
   constructor(
     private estudanteService: EstudanteService,
     private confirmationService: ConfirmationService,
-    private messageService: MessageService) {}
+    private messageService: MessageService,
+    private errorHandlerService: ErrorHandlerService) {}
 
   ngOnInit() {
     //this.pesquisar();
@@ -56,6 +58,8 @@ export class EstudantePesquisaComponent implements OnInit {
         this.messageService.add({
           severity: 'info', summary: 'Mensagem de Sucesso', detail: `${estudante.nome} removido com sucesso!`
         });
-      });
+      })
+      .catch(error =>
+        this.errorHandlerService.handle(error));
   }
 }

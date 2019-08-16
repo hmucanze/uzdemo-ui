@@ -5,49 +5,86 @@
     </div>
   </div>
 
-  <form>
-    <div class="p-grid">
-      <div class="p-col-12">
-        <p-fieldset legend="Dados Pessoais">
-          <div class="p-col-12 ui-fluid">
-            <label>Nome</label>
-            <input type="text" pInputText>
-          </div>
-          <div class="p-col-12 p-md-6 p-lg-3 ui-fluid">
-            <label>Província de Nascimento</label>
-            <p-dropdown [options]="provincias"></p-dropdown>
-          </div>
-          <div class="p-col-12 p-md-6 p-lg-3 ui-fluid">
-            <label>Distrito</label>
-            <p-dropdown [options]="distritos"></p-dropdown>
-          </div>
-          <div class="p-col-12 ui-fluid">
-            <label>Celular</label>
-            <input type="text" pInputText/>
-          </div>
-          <div class="p-col-12 ui-fluid">
-            <label>Curso</label>
-            <p-dropdown [options]="grupoCursos" [group]="true" placeholder="Selecione o Curso"></p-dropdown>
-          </div>
-        </p-fieldset>
+  <form autocomplete="off" #form="ngForm" (ngSubmit)="salvar(form)">
+    <p-fieldset legend="Dados Pessoais">
+      <div class="p-grid">
+        <div class="p-col-12 ui-fluid">
+          <label>Nome</label>
+          <input type="text" name="nome" pInputText [(ngModel)]="estudante.usuario.nome">
+        </div>
       </div>
 
-      <div class="p-col-12">
-        <p-fieldset legend="Dados da Conta">
-          <div class="p-col-12 ui-fluid">
-            <label>email</label>
-            <input type="text" pInputText>
-          </div>
-          <div class="p-col-12 ui-fluid">
-            <label>Senha</label>
-            <input type="password" pPassword promptLabel="Insira a Senha">
-          </div>
-        </p-fieldset>
+      <div class="p-grid">
+        <div class="p-col-12 p-md-4 ui-fluid">
+          <label>Data de Nascimento</label>
+          <p-calendar name="dataNascimento" dateFormat="dd/mm/yy"
+            [(ngModel)]="estudante.dataNascimento"></p-calendar>
+        </div>
+
+        <div class="p-col-12 p-md-4 ui-fluid">
+          <label>Província de Nascimento</label>
+          <p-dropdown [options]="provincias" name="provincia" placeholder="Selecone a Prinvícia"
+            (onChange)="carregarDistritos()" [(ngModel)]="estudante.usuario.distrito.provincia.id"></p-dropdown>
+        </div>
+
+        <div class="p-col-12 p-md-4 ui-fluid">
+          <label>Distrito</label>
+          <p-dropdown [options]="distritos" name="distrito" placeholder="Selecione o Distrito"
+            [(ngModel)]="estudante.usuario.distrito.id"></p-dropdown>
+        </div>
       </div>
 
-      <div class="p-col-12">
-        <button type="submit" pButton label="Salvar"></button>
+      <div class="p-grid">
+        <div class="p-col-12 p-md-3 ui-fluid">
+          <label>Celular</label>
+          <p-inputMask name="celular" placeholder="(+258) 999 9999" mask="(+258) 99 999 9999" [(ngModel)]="estudante.usuario.celular"></p-inputMask>
+        </div>
+
+        <div class="p-col-12 p-md-3 ui-fluid">
+          <label>Curso</label>
+          <p-dropdown [options]="cursos" name="curso" placeholder="Selecione o Curso"
+            [(ngModel)]="estudante.curso.id"></p-dropdown>
+        </div>
+
+        <div class="p-col-12 p-md-3 ui-fluid">
+          <label>Número de Estudante</label>
+          <input type="text" name="numero" pInputText [(ngModel)]="estudante.numero">
+        </div>
       </div>
-    </div>
+    </p-fieldset>
+
+    <p-fieldset legend="Dados da Conta">
+      <div class="p-grid">
+        <div class="p-col-6 ui-fluid">
+          <label>email</label>
+          <input type="text" name="email" pInputText placeholder="exemplo@email.com"
+          [(ngModel)]="estudante.usuario.email">
+        </div>
+
+        <div class="p-col-6 ui-fluid">
+          <label>Senha</label>
+          <input type="password" name="senha" pPassword promptLabel="Insira a Senha"
+            [(ngModel)]="estudante.usuario.senha">
+        </div>
+      </div>
+
+      <div class="p-grid">
+        <div class="p-col-1">
+          <button type="submit" pButton label="Salvar"></button>
+        </div>
+
+        <div class="p-col-1">
+          <a pButton label="Novo" class="ui-button-success" routerLink="/estudantes/novo"></a>
+        </div>
+
+        <div class="p-col link-pesquisa">
+          <a routerLink="/estudantes">Voltar para a Pesquisa de estudante</a>
+        </div>
+      </div>
+    </p-fieldset>
+
+
+
+
   </form>
 </div>

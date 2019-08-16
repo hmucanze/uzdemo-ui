@@ -1,6 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+
 import * as moment from 'moment';
+
+import { Estudante, Provincia } from '../core/model';
 
 export class EstudanteFilter {
   nome: string;
@@ -8,7 +11,7 @@ export class EstudanteFilter {
   dataNascimentoAte: Date;
 
   pagina = 0;
-  itensPorPagina = 2;
+  itensPorPagina = 5;
 }
 
 @Injectable({
@@ -49,12 +52,56 @@ export class EstudanteService {
       });
   }
 
+  salvar(estudante: Estudante): Promise<any> {
+    const headers = new HttpHeaders()
+    .append('Authorization', 'Basic aGVybWluaW9AZ21haWwuY29tOmhlcm1pbmlvMTIz')
+    .append('Content-Type', 'application/json');
+    return this.http.post<Estudante>(this.estudantesUrl, estudante, { headers })
+      .toPromise()
+      .then(response => console.log(response));
+  }
+
   remover(id: number): Promise<any> {
     const headers = new HttpHeaders()
-      .append('Authorization', 'Basic aGVybWluaW9AZ21haWwuY29tOmhlcm1pbmlvMTIz');
+      .append('Authorization', 'Basic aGVybWluaW9AZ21haWwuY29tOmhlcm1pbmlvMTI');
 
     return this.http.delete(`${this.estudantesUrl}/${id}`, { headers })
     .toPromise()
     .then(() => null);
+  }
+
+  buscarPorId(id: number): Promise<any> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic aGVybWluaW9AZ21haWwuY29tOmhlcm1pbmlvMTIz');
+    return this.http.get(`${this.estudantesUrl}/${id}`, { headers })
+      .toPromise()
+      .then(response => console.log(response));
+  }
+
+  buscarProvincias(): Promise<any> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic aGVybWluaW9AZ21haWwuY29tOmhlcm1pbmlvMTIz');
+    return this.http.get('http://localhost:8080/provincias', { headers })
+      .toPromise()
+      .then(response => response);
+  }
+
+  buscarDistritosPorProvincia(provinciaId: number): Promise<any> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic aGVybWluaW9AZ21haWwuY29tOmhlcm1pbmlvMTIz');
+
+    let params = new HttpParams();
+    params = params.set('provinciaId', provinciaId.toString());
+    return this.http.get('http://localhost:8080/distritos', { headers, params })
+      .toPromise()
+      .then(response => response);
+  }
+
+  buscarCursos(): Promise<any> {
+    const headers = new HttpHeaders()
+      .append('Authorization', 'Basic aGVybWluaW9AZ21haWwuY29tOmhlcm1pbmlvMTIz');
+    return this.http.get('http://localhost:8080/cursos', { headers })
+      .toPromise()
+      .then(response => response);
   }
 }

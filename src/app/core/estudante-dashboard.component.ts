@@ -1,3 +1,4 @@
+import { Title } from '@angular/platform-browser';
 import { Component, OnInit } from '@angular/core';
 import { AuthService } from '../seguranca/auth.service';
 
@@ -14,10 +15,12 @@ import { AuthService } from '../seguranca/auth.service';
 export class EstudanteDashboardComponent implements OnInit {
 
   constructor(
-    public authService: AuthService
+    public authService: AuthService,
+    private title: Title
   ) { }
 
   ngOnInit() {
+    this.title.setTitle('DashBoard');
   }
 
 }

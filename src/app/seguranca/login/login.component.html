@@ -28,5 +28,11 @@
       </div>
     </form>
   </div>
-
+  <div class="usuarios">
+    <p *ngFor="let usuario of usuarios" >
+      <span style="font-weight: bold;">Role: </span>{{ usuario.role }},
+      <span style="font-weight: bold;">email: </span>{{ usuario.email }},
+      <span style="font-weight: bold;">Senha: </span>{{ usuario.senha }}
+    </p>
+  </div>
 </div>

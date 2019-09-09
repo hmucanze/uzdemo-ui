@@ -1,7 +1,10 @@
-import { EstudanteService, EstudanteFilter } from './../estudante.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
+
 import { LazyLoadEvent, MessageService, ConfirmationService } from 'primeng/components/common/api';
 import { Table } from 'primeng/table';
+
+import { AuthService } from 'src/app/seguranca/auth.service';
+import { EstudanteService, EstudanteFilter } from './../estudante.service';
 import { ErrorHandlerService } from 'src/app/core/error-handler.service';
 
 @Component({
@@ -17,13 +20,14 @@ export class EstudantePesquisaComponent implements OnInit {
   totalRegistros = 0;
 
   constructor(
+    public authService: AuthService,
     private estudanteService: EstudanteService,
     private confirmationService: ConfirmationService,
     private messageService: MessageService,
     private errorHandlerService: ErrorHandlerService) {}
 
   ngOnInit() {
-    //this.pesquisar();
+    // this.pesquisar();
   }
 
   aoCaregarTabela(event: LazyLoadEvent) {
@@ -48,7 +52,8 @@ export class EstudantePesquisaComponent implements OnInit {
       .then(resultado => {
         this.estudantes = resultado.estudantes,
         this.totalRegistros = resultado.total;
-      });
+      })
+      .catch(error => this.errorHandlerService.handle(error));
   }
 
   remover(estudante: any) {
@@ -56,7 +61,7 @@ export class EstudantePesquisaComponent implements OnInit {
       .then(() => {
         this.tabela.reset();
         this.messageService.add({
-          severity: 'info', summary: 'Mensagem de Sucesso', detail: `${estudante.nome} removido com sucesso!`
+          severity: 'success', summary: 'Sucesso', detail: `${estudante.nome} removido com sucesso!`
         });
       })
       .catch(error =>

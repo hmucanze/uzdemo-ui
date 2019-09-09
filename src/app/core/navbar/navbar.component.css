@@ -29,6 +29,10 @@
   padding: 10px 15px;
 }
 
+.navbar-menuitem.activo {
+  background-color: #494541;
+}
+
 .navbar-menuitem a {
   color: #c0bbb7;
 }

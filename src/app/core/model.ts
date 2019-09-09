@@ -20,7 +20,7 @@ export  class Usuario {
 
 export class Funcionario {
   id: number;
-  usuaro = new Usuario();
+  usuario = new Usuario();
 }
 
 export class Curso {

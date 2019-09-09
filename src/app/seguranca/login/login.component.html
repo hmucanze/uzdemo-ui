@@ -1,0 +1,32 @@
+<div class="container">
+
+  <div class="formulario">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <h1 style="margin: 0">Login</h1>
+        <p style="margin-bottom: 0; font-size: 14px; color: #999;">Por favor, faça Login</p>
+      </div>
+    </div>
+    <form autocomplete="off" #form="ngForm">
+      <div class="p-grid">
+        <div class="p-col-12 ui-fluid">
+          <input type="text" placeholder="Email" required email pInputText name="email" ngModel #email>
+        </div>
+      </div>
+
+      <div class="p-grid">
+        <div class="p-col-12 ui-fluid">
+          <input type="password" placeholder="Senha" required pInputText name="senha" ngModel #senha>
+        </div>
+      </div>
+
+      <div class="p-grid">
+        <div class="p-col-12 ui-fluid">
+          <button type="submit" pButton label="Entrar" [disabled]="!form.valid"
+          (click)="login(email.value,senha.value); senha.value='';"></button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+</div>

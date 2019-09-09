@@ -63,8 +63,13 @@
               {{estudante.proveniencia}}
             </td>
             <td class="col-accoes-body"><span class="ui-column-title">Acções</span>
-              <a href="javascript:;" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"></a>
-              <button pButton icon="pi pi-trash" pTooltip="Remover" tooltipPosition="top" (click)="aoRemover(estudante)"></button>
+              <a href="javascript:;" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+                [routerLink]="['/estudantes', estudante.id]">
+              </a>
+              <button pButton icon="pi pi-trash" pTooltip="Remover" tooltipPosition="top"
+                [disabled]="!authService.temPermissao('ROLE_REMOVER_ESTUDANTE')"
+                (click)="aoRemover(estudante)">
+              </button>
             </td>
           </tr>
         </ng-template>

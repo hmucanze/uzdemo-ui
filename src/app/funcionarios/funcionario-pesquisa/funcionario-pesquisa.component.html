@@ -1,23 +1,29 @@
 <div class="container">
+  <form autocomplete="off" (ngSubmit)="pesquisar()">
+    <div class="p-grid">
+      <div class="p-col-12">
+        <h1>Lista de Funcionários</h1>
+      </div>
+      <div class="p-col-12 ui-fluid">
+        <label>Nome</label>
+        <input type="text" pInputText name="nome" [(ngModel)]="filtro.nome">
+      </div>
+
+      <div class="p-col-12">
+        <button type="submit" pButton label="Pesquisar"></button>
+      </div>
+    </div>
+  </form>
+
   <div class="p-grid">
     <div class="p-col-12">
-      <h1>Lista de Funcionários</h1>
-      <label>Nome</label>
-      <input type="text" pInputText style="width: 100%">
-    </div>
-
-    <div class="p-col-12">
-      <button type="button" pButton label="Pesquisar"></button>
-    </div>
-
-    <div class="p-col-12">
-      <p-table [value]="funcionarios" [responsive]="true">
+      <p-table [value]="funcionarios" [responsive]="true" [paginator]="true" [rows]="filtro.itensPorPagina"
+        [totalRecords]="totalRegistros" [lazy]="true" (onLazyLoad)="aoCarregarTabela($event)" #tabela>
         <ng-template pTemplate="header">
           <tr>
             <th class="col-codigo">#</th>
             <th>Nome</th>
             <th class="col-contacto">Celular</th>
-            <th class="col-nascimento">Data de Nascimento</th>
             <th class="col-proveniencia">Proveniência</th>
             <th class="col-accoes"></th>
           </tr>
@@ -30,30 +36,29 @@
             </td>
             <td>
               <span class="ui-column-title">Nome</span>
-              {{funcionario.nome}}
+              {{funcionario.usuario.nome}}
             </td>
             <td>
               <span class="ui-column-title">Celular</span>
-              {{funcionario.celular}}
-            </td>
-            <td class="col-nascimento-body">
-              <span class="ui-column-title">Data de Nascimento</span>
-              {{funcionario.nascimento}}
+              {{funcionario.usuario.celular}}
             </td>
             <td class="col-proveniencia-body">
               <span class="ui-column-title">Proveniência</span>
-              {{funcionario.proveniencia}}
+              {{funcionario.usuario.distrito.provincia.nome}}
             </td>
-            <td class="col-accoes-body">
-              <a href="javascrip:;" pButton icon="pi pi-pencil"></a>
-              <button pButton icon="pi pi-trash"></button>
+            <td class="col-accoes-body"><span class="ui-column-title">Acções</span>
+              <a href="javascrip:;" pButton icon="pi pi-pencil" pTooltip="Editar" tooltipPosition="top"
+                [routerLink]="['/funcionarios', funcionario.id]"></a>
+              <button pButton icon="pi pi-trash" pTooltip="Remover" tooltipPosition="top"
+                (click)="aoRemover(funcionario)">
+              </button>
             </td>
           </tr>
         </ng-template>
 
         <ng-template pTemplate="emptymessage">
           <tr>
-            <td colspan="6">Nenhum Regustro encontrado!</td>
+            <td colspan="5">Nenhum Regustro encontrado!</td>
           </tr>
         </ng-template>
       </p-table>

@@ -1,54 +1,69 @@
 <div class="container">
   <div class="p-grid">
     <div class="p-col-12">
-      <h1>Cadastro de Estudante</h1>
+      <h1>{{ Editando ? "Edição": "Cadastro" }} de Estudante</h1>
     </div>
   </div>
 
-  <form autocomplete="off" #form="ngForm" (ngSubmit)="salvar(form)">
+  <form autocomplete="off" #form="ngForm" (ngSubmit)="salvar()">
     <p-fieldset legend="Dados Pessoais">
       <div class="p-grid">
         <div class="p-col-12 ui-fluid">
           <label>Nome</label>
-          <input type="text" name="nome" pInputText [(ngModel)]="estudante.usuario.nome">
+          <input type="text" name="nome" pInputText [(ngModel)]="estudante.usuario.nome" #nome="ngModel" required>
+          <p-message severity="error" text="Nome não pode ser nulo" *ngIf="!nome.valid&&nome.dirty"></p-message>
         </div>
       </div>
 
       <div class="p-grid">
         <div class="p-col-12 p-md-4 ui-fluid">
           <label>Data de Nascimento</label>
-          <p-calendar name="dataNascimento" dateFormat="dd/mm/yy"
-            [(ngModel)]="estudante.dataNascimento"></p-calendar>
+          <p-calendar name="dataNascimento" dateFormat="dd/mm/yy" required
+            [(ngModel)]="estudante.dataNascimento" #dataNascimento="ngModel">
+          </p-calendar>
+          <p-message severity="error" text="Data nao pode ser nula" *ngIf="!dataNascimento.valid&&dataNascimento.dirty"></p-message>
         </div>
 
         <div class="p-col-12 p-md-4 ui-fluid">
           <label>Província de Nascimento</label>
-          <p-dropdown [options]="provincias" name="provincia" placeholder="Selecone a Prinvícia"
-            (onChange)="carregarDistritos()" [(ngModel)]="estudante.usuario.distrito.provincia.id"></p-dropdown>
+          <p-dropdown [options]="provincias" name="provincia" placeholder="Selecone a Prinvícia" required
+            (onChange)="carregarDistritos()" [(ngModel)]="estudante.usuario.distrito.provincia.id"
+            #provincia="ngModel">
+          </p-dropdown>
+          <p-message severity="error" text="Provincia não pode ser nula" *ngIf="!provincia.valid&&provincia.touched"></p-message>
         </div>
 
         <div class="p-col-12 p-md-4 ui-fluid">
           <label>Distrito</label>
-          <p-dropdown [options]="distritos" name="distrito" placeholder="Selecione o Distrito"
-            [(ngModel)]="estudante.usuario.distrito.id"></p-dropdown>
+          <p-dropdown [options]="distritos" name="distrito" placeholder="Selecione o Distrito" required
+            [(ngModel)]="estudante.usuario.distrito.id" #distrito="ngModel">
+          </p-dropdown>
+          <p-message severity="error" text="Distrito nao pode ser nula" *ngIf="!distrito.valid&&distrito.touched"></p-message>
         </div>
       </div>
 
       <div class="p-grid">
-        <div class="p-col-12 p-md-3 ui-fluid">
+        <div class="p-col-12 p-md-4 ui-fluid">
           <label>Celular</label>
-          <p-inputMask name="celular" placeholder="(+258) 999 9999" mask="(+258) 99 999 9999" [(ngModel)]="estudante.usuario.celular"></p-inputMask>
+          <p-inputMask name="celular" placeholder="(+258) 999 9999" mask="999999999" required
+            [(ngModel)]="estudante.usuario.celular" #celular="ngModel">
+          </p-inputMask>
+          <p-message severity="error" text="Celular não pode ser nula" *ngIf="!celular.valid&&celular.dirty"></p-message>
         </div>
 
-        <div class="p-col-12 p-md-3 ui-fluid">
+        <div class="p-col-12 p-md-4 ui-fluid">
           <label>Curso</label>
-          <p-dropdown [options]="cursos" name="curso" placeholder="Selecione o Curso"
-            [(ngModel)]="estudante.curso.id"></p-dropdown>
+          <p-dropdown [options]="cursos" name="curso" placeholder="Selecione o Curso" required
+            [(ngModel)]="estudante.curso.id" #curso="ngModel">
+          </p-dropdown>
+          <p-message severity="error" text="Curso não pode estar vazio" *ngIf="!curso.valid&&curso.touched"></p-message>
         </div>
 
-        <div class="p-col-12 p-md-3 ui-fluid">
+        <div class="p-col-12 p-md-4 ui-fluid">
           <label>Número de Estudante</label>
-          <input type="text" name="numero" pInputText [(ngModel)]="estudante.numero">
+          <input type="text" name="numero" pInputText [(ngModel)]="estudante.numero"
+            maxlength="12" required #numero="ngModel">
+          <p-message severity="error" text="Número não pode estar vazio" *ngIf="!numero.valid&&numero.dirty"></p-message>
         </div>
       </div>
     </p-fieldset>
@@ -57,24 +72,26 @@
       <div class="p-grid">
         <div class="p-col-6 ui-fluid">
           <label>email</label>
-          <input type="text" name="email" pInputText placeholder="exemplo@email.com"
-          [(ngModel)]="estudante.usuario.email">
+          <input type="text" name="email" pInputText placeholder="exemplo@email.com" required
+            [(ngModel)]="estudante.usuario.email" #email="ngModel">
+          <p-message severity="error" text="email não pode estar vazio" *ngIf="!email.valid&&email.dirty"></p-message>
         </div>
 
         <div class="p-col-6 ui-fluid">
           <label>Senha</label>
-          <input type="password" name="senha" pPassword promptLabel="Insira a Senha"
-            [(ngModel)]="estudante.usuario.senha">
+          <input type="password" name="senha" pPassword promptLabel="Insira a Senha" required
+            [(ngModel)]="estudante.usuario.senha" #senha="ngModel">
+          <p-message severity="error" text="Senha não pode estar vazio" *ngIf="!senha.valid&&senha.dirty"></p-message>
         </div>
       </div>
 
       <div class="p-grid">
         <div class="p-col-1">
-          <button type="submit" pButton label="Salvar"></button>
+          <button type="submit" pButton label="Salvar" [disabled]="form.invalid"></button>
         </div>
 
         <div class="p-col-1">
-          <a pButton label="Novo" class="ui-button-success" routerLink="/estudantes/novo"></a>
+          <a pButton label="Novo" class="ui-button-success" (click)="novo(form)"></a>
         </div>
 
         <div class="p-col link-pesquisa">

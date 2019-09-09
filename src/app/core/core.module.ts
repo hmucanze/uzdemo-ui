@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule } from '@angular/router';
+import { Title } from '@angular/platform-browser';
 
 import { ConfirmDialogModule } from 'primeng/confirmdialog';
 import { ConfirmationService, MessageService } from 'primeng/components/common/api';
@@ -11,11 +12,16 @@ import { ErrorHandlerService } from './error-handler.service';
 import { EstudantesModule } from '../estudantes/estudantes.module';
 import { FuncionariosModule } from '../funcionarios/funcionarios.module';
 import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component';
+import { SegurancaModule } from '../seguranca/seguranca.module';
+import { PaginaNaoAutorizadaComponent } from './pagina-nao-autorizada.component';
+import { EstudanteDashboardComponent } from './estudante-dashboard.component';
 
 @NgModule({
   declarations: [
     NavbarComponent,
-    PaginaNaoEncontradaComponent
+    PaginaNaoEncontradaComponent,
+    PaginaNaoAutorizadaComponent,
+    EstudanteDashboardComponent
   ],
   imports: [
     CommonModule,
@@ -25,7 +31,8 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     ToastModule,
 
     EstudantesModule,
-    FuncionariosModule
+    FuncionariosModule,
+    SegurancaModule
   ],
   exports: [
     ConfirmDialogModule,
@@ -36,8 +43,11 @@ import { PaginaNaoEncontradaComponent } from './pagina-nao-encontrada.component'
     NavbarComponent
   ],
   providers: [
+    Title,
+
     ConfirmationService,
     MessageService,
+
     ErrorHandlerService
   ]
 })

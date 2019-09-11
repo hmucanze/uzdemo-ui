@@ -6,8 +6,8 @@ export const environment = {
   production: false,
   apiURL: 'http://localhost:8080',
 
-  tokenWhitelistedDomains: [new RegExp('localhost:8080')],
-  tokenBlacklistedRoutes: [new RegExp('\/oauth\/token')]
+  tokenWhitelistedDomains: 'localhost:8080',
+  tokenBlacklistedRoutes: '\/oauth\/token'
 };
 
 /*

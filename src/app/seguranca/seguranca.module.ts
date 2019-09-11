@@ -1,4 +1,4 @@
-import { environment } from './../../environments/environment';
+import { environment } from 'src/environments/environment';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -14,7 +14,7 @@ import { LoginComponent } from './login/login.component';
 import { UzHttpInterceptor } from './uz-http-interceptor';
 import { AuthGuard } from './auth.guard';
 
-export function tokenGetter() {
+export function tokenGetter(): string {
   return localStorage.getItem('token');
 }
 
@@ -29,8 +29,8 @@ export function tokenGetter() {
     JwtModule.forRoot({
       config: {
         tokenGetter,
-        whitelistedDomains: environment.tokenWhitelistedDomains,
-        blacklistedRoutes: environment.tokenBlacklistedRoutes
+        whitelistedDomains: [environment.tokenWhitelistedDomains],
+        blacklistedRoutes: [environment.tokenBlacklistedRoutes]
       }
     }),
     PasswordModule

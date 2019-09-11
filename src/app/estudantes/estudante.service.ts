@@ -1,6 +1,6 @@
 import { environment } from './../../environments/environment';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpParams } from '@angular/common/http';
 
 import * as moment from 'moment';
 
@@ -54,17 +54,13 @@ export class EstudanteService {
   }
 
   salvar(estudante: Estudante): Promise<Estudante> {
-    const headers = new HttpHeaders()
-    .append('Content-Type', 'application/json');
-    return this.http.post<Estudante>(this.estudantesUrl, estudante, { headers })
+    return this.http.post<Estudante>(this.estudantesUrl, estudante)
     .toPromise()
     .then(response => response);
   }
 
   actualizar(estudante: Estudante): Promise<Estudante> {
-    const headers = new HttpHeaders()
-    .append('Content-Type', 'application/json');
-    return this.http.put<Estudante>(`${this.estudantesUrl}/${estudante.id}`, estudante, {headers})
+    return this.http.put<Estudante>(`${this.estudantesUrl}/${estudante.id}`, estudante)
     .toPromise()
     .then(response => response);
   }
@@ -85,7 +81,7 @@ export class EstudanteService {
   }
 
   buscarProvincias(): Promise<any> {
-    return this.http.get('http://localhost:8080/provincias')
+    return this.http.get(`${environment.apiURL}/provincias`)
       .toPromise()
       .then(response => response);
   }
@@ -93,13 +89,13 @@ export class EstudanteService {
   buscarDistritosPorProvincia(provinciaId: number): Promise<any> {
     let params = new HttpParams();
     params = params.set('provinciaId', provinciaId.toString());
-    return this.http.get('http://localhost:8080/distritos', { params })
+    return this.http.get(`${environment.apiURL}/distritos`, { params })
       .toPromise()
       .then(response => response);
   }
 
   buscarCursos(): Promise<any> {
-    return this.http.get('http://localhost:8080/cursos')
+    return this.http.get(`${environment.apiURL}/cursos`)
       .toPromise()
       .then(response => response);
   }
